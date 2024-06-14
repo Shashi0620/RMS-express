@@ -1,0 +1,83 @@
+<div class="row">
+  <div class="page-title">
+    <h4 class="ml-3">Notifications</h4>
+  </div>
+  <div class="col">
+    <button
+      class="btn btn-sm btn-primary mt-2 pull-right bi-bell"
+      data-toggle="tooltip"
+      data-placement="bottom"
+      title="Add Notification"
+      style="background-color: #2185d0"
+      (click)="addNewNotification()"
+    >
+      Add Notification
+    </button>
+  </div>
+</div>
+<br />
+<div class="mat-app-background basic-container">
+  <mat-table #table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="settingName">
+      <mat-header-cell
+        *matHeaderCellDef
+        class="text-bold"
+        style="font-size: 14px; color: #778d9b"
+      >
+        Name
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element" style="color: #778d9b">
+        {{ element.settingName }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="notificationType">
+      <mat-header-cell
+        *matHeaderCellDef
+        class="text-bold"
+        style="font-size: 14px; color: #778d9b"
+      >
+        NotificationType
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element" style="color: #778d9b">
+        {{ element.notificationType }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container
+      matColumnDef="actions"
+      class="text-bold"
+      style="margin-right: 10px"
+    >
+      <mat-header-cell
+        *matHeaderCellDef
+        class="text-bold"
+        style="font-size: 14px; margin-right: 10px"
+      >
+        Actions
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <a
+          class="bi-trash-fill context-menu mr-2"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Delete Notification"
+          (click)="deleteNotification(element.id)"
+          style="color: #990000"
+        ></a>
+        <a
+          class="bi-pencil-fill mr-2"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Edit Notification"
+          routerLink="/Edit Notification/{{ element.id }}"
+        ></a>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+</div>
+
+<mat-paginator #paginator [pageSize]="5"></mat-paginator>

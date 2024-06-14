@@ -1,0 +1,251 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <!-- <div class="col-12">
+    <input
+    type="text"
+    class="form-control"
+    placeholder="Search"
+    [(ngModel)]="model.name"
+  />  
+  </div> -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <form class="ftheme">
+            <div class="card-block">
+              <div class="mrg-top-40">
+                <div *ngIf="!success" class="col-md-8 ml-auto mr-auto">
+                  <div *ngFor="let item of model.attributes" class="form-group">
+                    <div *ngIf="item.type == 'text'">
+                      <label>{{ item.label }}</label>
+                      <label *ngIf="item.required" class="text-danger">*</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="{{ item.name }}"
+                        placeholder="{{ item.placeholder }}"
+                        [(ngModel)]="item.value"
+                        [required]="item.required"
+                        [ngModelOptions]="{ standalone: true }"
+                        autocomplete="off"
+                      />
+                    </div>
+                    <div *ngIf="item.type == 'email'">
+                      <label>{{ item.label }}</label>
+                      <label *ngIf="item.required" class="text-danger">*</label>
+                      <input
+                        type="email"
+                        class="form-control"
+                        id="{{ item.name }}"
+                        placeholder="{{ item.placeholder }}"
+                        [(ngModel)]="item.value"
+                        [ngModelOptions]="{ standalone: true }"
+                        autocomplete="off"
+                      />
+                    </div>
+                    <div *ngIf="item.type == 'phone'">
+                      <label>{{ item.label }}</label>
+                      <label *ngIf="item.required" class="text-danger">*</label>
+                      <input
+                        type="email"
+                        class="form-control"
+                        id="{{ item.name }}"
+                        placeholder="{{ item.placeholder }}"
+                        [(ngModel)]="item.value"
+                        [ngModelOptions]="{ standalone: true }"
+                        autocomplete="off"
+                      />
+                    </div>
+                    <div *ngIf="item.type == 'number'">
+                      <label>{{ item.label }}</label>
+                      <label *ngIf="item.required" class="text-danger">*</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="{{ item.name }}"
+                        min="{{ item.min }}"
+                        max="{{ item.max }}"
+                        placeholder="{{ item.placeholder }}"
+                        [(ngModel)]="item.value"
+                        [ngModelOptions]="{ standalone: true }"
+                        autocomplete="off"
+                      />
+                    </div>
+                    <div *ngIf="item.type == 'date'">
+                      <label>{{ item.label }}</label>
+                      <label *ngIf="item.required" class="text-danger">*</label>
+                      <input
+                        type="date"
+                        class="form-control"
+                        id="{{ item.name }}"
+                        placeholder="{{ item.placeholder }}"
+                        [(ngModel)]="item.value"
+                        [ngModelOptions]="{ standalone: true }"
+                        autocomplete="off"
+                      />
+                    </div>
+                    <div *ngIf="item.type == 'datetime-local'">
+                      <label>{{ item.label }}</label>
+                      <label *ngIf="item.required" class="text-danger">*</label>
+                      <input
+                        type="datetime-local"
+                        class="form-control"
+                        id="{{ item.name }}"
+                        placeholder="{{ item.placeholder }}"
+                        [(ngModel)]="item.value"
+                        [ngModelOptions]="{ standalone: true }"
+                        autocomplete="off"
+                      />
+                    </div>
+                    <div *ngIf="item.type == 'textarea'">
+                      <label>{{ item.label }}</label>
+                      <label *ngIf="item.required" class="text-danger">*</label>
+                      <textarea
+                        class="form-control"
+                        id="{{ item.name }}"
+                        placeholder="{{ item.placeholder }}"
+                        [(ngModel)]="item.value"
+                        [ngModelOptions]="{ standalone: true }"
+                        autocomplete="off"
+                      ></textarea>
+                    </div>
+                    <div *ngIf="item.type == 'file'">
+                      <label>
+                        {{ item.label }} (File can't be uploaded right now)
+                      </label>
+                      <label *ngIf="item.required" class="text-danger">*</label>
+                      <input
+                        type="file"
+                        class="form-control"
+                        id="{{ item.name }}"
+                        placeholder="{{ item.placeholder }}"
+                        [(ngModel)]="item.value"
+                        (change)="selectFile($event)"
+                        [ngModelOptions]="{ standalone: true }"
+                        autocomplete="off"
+                      />
+                      <small class="form-text text-danger">
+                        (File can't be uploaded right now)
+                      </small>
+                    </div>
+                    <div *ngIf="item.type == 'paragraph'">
+                      <p class="form-text">{{ item.placeholder }}</p>
+                    </div>
+                    <div *ngIf="item.type == 'autocomplete'">
+                      <label>{{ item.label }}</label>
+                      <label *ngIf="item.required" class="text-danger">*</label>
+                      <select
+                        class="form-control"
+                        id="{{ item.name }}"
+                        [(ngModel)]="item.value"
+                        [ngModelOptions]="{ standalone: true }"
+                      >
+                        <option *ngFor="let v of item.values" [value]="v.value">
+                          {{ v.label }}
+                        </option>
+                      </select>
+                      <!-- <small class="form-text text-muted">{{item.description}}</small> -->
+                    </div>
+                    <div *ngIf="item.type == 'checkbox'">
+                      <label>{{ item.label }}</label>
+                      <label *ngIf="item.required" class="text-danger">*</label>
+                      <div
+                        *ngFor="let v of item.values"
+                        class="inline-form-group"
+                      >
+                        <label class="cust-check-bx">
+                          <input
+                            type="checkbox"
+                            [value]="v.value"
+                            name="{{ item.name }}"
+                            (click)="toggleValue(v)"
+                          />
+                          {{ v.label }}
+                          <span class="checkmark"></span>
+                        </label>
+                      </div>
+                    </div>
+                    <div *ngIf="item.type == 'radio'">
+                      <label>{{ item.label }}</label>
+                      <label *ngIf="item.required" class="text-danger">*</label>
+                      <div
+                        *ngFor="let v of item.values"
+                        class="inline-form-group"
+                      >
+                        <label class="cust-check-bx">
+                          <input
+                            type="radio"
+                            [value]="v.value"
+                            name="{{ item.name }}"
+                            [(ngModel)]="item.value"
+                            [ngModelOptions]="{ standalone: true }"
+                          />
+                          {{ v.label }}
+                          <span class="checkmark"></span>
+                        </label>
+                      </div>
+                    </div>
+                    <div *ngIf="item.type == 'button'" class="btn-cont">
+                      <span>
+                        <input
+                          type="{{ item.subtype }}"
+                          (click)="submit()"
+                          value="{{ item.label }}"
+                          class="btn btn-primary"
+                          id="{{ item.name }}"
+                        />
+                      </span>
+                      <span class="pl-2">
+                        <button
+                          type="button"
+                          class="btn btn-danger pl-2"
+                          (click)="cancel()"
+                        >
+                          Cancel
+                        </button>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6 col-xs-6">
+                      <div class="checkbox">
+                        <input id="check1" type="hidden" />
+                        <label for="check1">
+                          <a class="text-link" href=""></a>
+                          .
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-xs-6">
+                      <div class="text-right mrg-top-5">
+                        <div class="form-group">
+                          <button
+                            class="btn btn-primary"
+                            style="
+                              background-color: #2185d0;
+                              border-color: #2185d0;
+                            "
+                            (click)="submit()"
+                          >
+                            Save
+                          </button>
+                          <button
+                            class="btn btn-default"
+                            style="border-color: #d4deee;"
+                            (click)="cancel()"
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

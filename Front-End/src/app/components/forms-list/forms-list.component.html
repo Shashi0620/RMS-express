@@ -1,0 +1,86 @@
+<div class="page-title">
+  <h4>{{ formName }}</h4>
+</div>
+<div class="list row">
+  <div class="spinner-container" *ngIf="dataSource.loading$ | async">
+    <mat-spinner></mat-spinner>
+  </div>
+  <div>
+    <button
+      class="btn btn-sm btn-primary float-right"
+      data-toggle="tooltip"
+      data-placement="bottom"
+      title="Add Product"
+      style="background-color: #2185d0; border-color: #2185d0"
+      (click)="addNewForm()"
+    >
+      Add new Product
+    </button>
+  </div>
+  <div *ngIf="showHideColumn" class="thead">
+    <button
+      class="btn btn-sm btn-primary fa fa-eye-slash"
+      data-toggle="tooltip"
+      data-placement="bottom"
+      title="Show Hide Columns"
+      style="background-color: #2185d0"
+      #menuTrigger="matMenuTrigger"
+      [matMenuTriggerFor]="mainMenuButton"
+    ></button>
+    <mat-menu #mainMenuButton="matMenu">
+      <span
+        (click)="$event.stopPropagation()"
+        *ngFor="let column of columnShowHideList; index as i"
+      >
+        <mat-slide-toggle
+          [(ngModel)]="column.isActive"
+          (change)="toggleColumn(column)"
+        ></mat-slide-toggle>
+        {{ column.name }}
+        <br />
+      </span>
+    </mat-menu>
+  </div>
+  <div class="mat-app-background basic-container">
+    <mat-table #table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container
+        matColumnDef="{{ column }}"
+        *ngFor="let column of displayedColumns"
+      >
+        <mat-header-cell
+          class="custom-mat-header-styling tableHeaderCellDiv"
+          *matHeaderCellDef
+        >
+          {{ column }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <div [innerHTML]="element[column]"></div>
+          &nbsp;
+          <a
+            *ngIf="column == 'actions'"
+            class="bi-trash-fill context-menu mr-1"
+            data-toggle="tooltip"
+            data-placement="bottom"
+            title="Delete Form"
+            (click)="removeForm(element.id)"
+            style="color: #990000"
+          ></a>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+
+    <mat-paginator #paginator [pageSize]="5"></mat-paginator>
+
+    <button
+      class="btn btn-sm btn-primary float-right"
+      data-placement="bottom"
+      style="background-color: #2185d0; border-color: #2185d0"
+      (click)="saveUserSelected()"
+    >
+      Save Changes
+    </button>
+  </div>
+</div>

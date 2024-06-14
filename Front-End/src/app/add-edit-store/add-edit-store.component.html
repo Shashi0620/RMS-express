@@ -1,0 +1,99 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card border-0">
+          <div class="card-block">
+            <div class="mrg-top-40">
+              <div class="col-md-8 ml-auto mr-auto">
+                <form
+                  name="storeForm"
+                  [formGroup]="storeForm"
+                  (ngSubmit)="saveStore()"
+                >
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="title">StoreName</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="storeName"
+                          formControlName="storeName"
+                          [ngClass]="{
+                            'is-invalid': submitted && f.storeName.errors
+                          }"
+                          name="storeName"
+                          [(ngModel)]="storeObj.storeName"
+                        />
+                        <div
+                          *ngIf="submitted && f.storeName.errors"
+                          class="invalid-feedback"
+                        >
+                          <div *ngIf="f.storeName.errors.required">
+                            StoreName is required
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mt-3">
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="title">Address</label>
+                        <textarea
+                          class="form-control"
+                          id="address"
+                          rows="3"
+                          formControlName="address"
+                          [ngClass]="{
+                            'is-invalid': submitted && f.address.errors
+                          }"
+                          name="address"
+                          [(ngModel)]="storeObj.address"
+                        ></textarea>
+                        <div
+                          *ngIf="submitted && f.address.errors"
+                          class="invalid-feedback"
+                        >
+                          <div *ngIf="f.address.errors.required">
+                            address is required
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group">
+                        <button
+                          class="btn btn-primary mt-3 float-right bi-save"
+                          data-toggle="tooltip"
+                          data-placement="bottom"
+                          title="Save Store"
+                        >
+                          Save Store
+                        </button>
+                        <button
+                          type="button"
+                          routerLink="/stores"
+                          class="btn btn-danger mt-3 float-right"
+                        >
+                          <span class="btn-label">
+                            <i class="btn-close mr-1"></i>
+                          </span>
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

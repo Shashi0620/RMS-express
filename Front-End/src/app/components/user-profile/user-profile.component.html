@@ -1,0 +1,251 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no"
+    />
+    <title>Bootstrap Responsive Web Application Template</title>
+  </head>
+
+  <body>
+    <div class="main-content">
+      <div class="container-fluid">
+        <div class="page-title">
+          <h4>Account Setting</h4>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="widget-profile-1 card">
+                  <div class="profile border bottom">
+                    <div class="mrg-top-30 mrg-btm-5">
+                      <label for="img-upload" class="pointer">
+                        <img
+                          [src]="profile.image"
+                          width="300"
+                          height="245"
+                          alt=""
+                        />
+                        <span class="btn btn-default display-block no-mrg-btm">
+                          Choose file
+                        </span>
+                        <input
+                          class="d-none"
+                          type="file"
+                          name="uploadedimages0"
+                          multiple
+                          id="img-upload"
+                          (change)="selectFile($event)"
+                        />
+                      </label>
+                      <div *ngIf="currentFile" class="progress my-3">
+                        <div
+                          class="progress-bar progress-bar-info progress-bar-striped"
+                          role="progressbar"
+                          attr.aria-valuenow="{{ progress }}"
+                          aria-valuemin="0"
+                          aria-valuemax="100"
+                          [ngStyle]="{ width: progress + '%' }"
+                        >
+                          {{ progress }}%
+                        </div>
+                      </div>
+                      <div
+                        *ngIf="message"
+                        class="alert alert-secondary"
+                        role="alert"
+                      >
+                        {{ message }}
+                      </div>
+                    </div>
+                    <h4 class="mrg-top-5 no-mrg-btm text-semibold">
+                      {{ profile.userName }}
+                    </h4>
+                    <p>Experience Designer</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="card">
+                  <div class="card-heading border bottom">
+                    <h4 class="card-title">General Info</h4>
+                  </div>
+                  <form
+                    name="myForm"
+                    [formGroup]="profileForm"
+                    (ngSubmit)="onSubmit()"
+                  >
+                    <div class="card-block">
+                      <div class="row">
+                        <div class="col">
+                          <p class="mrg-top-10 text-dark ml-3">
+                            <b>UserName</b>
+                          </p>
+                          <div class="col-md-12">
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="userName"
+                              value="{{ profile.userName }}"
+                              formControlName="userName"
+                              [ngClass]="{
+                                'is-invalid': submitted && f.userName.errors
+                              }"
+                              [(ngModel)]="profile.userName"
+                              name="userName"
+                            />
+                            <div
+                              *ngIf="submitted && f.userName.errors"
+                              class="invalid-feedback"
+                            >
+                              <div *ngIf="f.userName.errors.required">
+                                UserName is required
+                              </div>
+                            </div>
+                            <div *ngIf="isExist" class="text-danger">
+                              UserName already exist
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="col-md-6">
+                            <p class="mrg-top-10 text-dark"><b>Email</b></p>
+                          </div>
+                          <div class="col-md-12">
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="email"
+                              formControlName="email"
+                              [ngClass]="{
+                                'is-invalid': submitted && f.email.errors
+                              }"
+                              [(ngModel)]="profile.email"
+                              name="email"
+                            />
+                            <div
+                              *ngIf="submitted && f.email.errors"
+                              class="invalid-feedback"
+                            >
+                              <div *ngIf="f.email.errors.required">
+                                email is required
+                              </div>
+                            </div>
+                            <div *ngIf="isExist" class="text-danger">
+                              Email already exist
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <br />
+                      <div class="row mt-3">
+                        <div class="col">
+                          <p class="mrg-top-10 text-dark ml-3"><b>Phone</b></p>
+                          <div class="col-md-12">
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="phone"
+                              formControlName="phone"
+                              [ngClass]="{
+                                'is-invalid': submitted && f.phone.errors
+                              }"
+                              [(ngModel)]="profile.phone"
+                              name="phone"
+                            />
+                            <div
+                              *ngIf="submitted && f.phone.errors"
+                              class="invalid-feedback"
+                            >
+                              <div *ngIf="f.phone.errors.required">
+                                phone is required
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="col-md-3">
+                            <p class="mrg-top-10 text-dark"><b>City</b></p>
+                          </div>
+                          <div class="col-md-12">
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="city"
+                              formControlName="city"
+                              [ngClass]="{
+                                'is-invalid': submitted && f.city.errors
+                              }"
+                              [(ngModel)]="profile.city"
+                              name="city"
+                            />
+                            <div
+                              *ngIf="submitted && f.city.errors"
+                              class="invalid-feedback"
+                            >
+                              <div *ngIf="f.city.errors.required">
+                                city is required
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <br />
+                      <br />
+                      <div class="form-group mt-n2">
+                        <p class="mrg-top-4 text-dark ml-3"><b>Address</b></p>
+                        <div class="col">
+                          <textarea
+                            class="form-control"
+                            id="address"
+                            rows="3"
+                            formControlName="address"
+                            [ngClass]="{
+                              'is-invalid': submitted && f.address.errors
+                            }"
+                            [(ngModel)]="profile.address"
+                            name="address"
+                          ></textarea>
+                          <div
+                            *ngIf="submitted && f.address.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.address.errors.required">
+                              address is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col mr-2">
+                          <button
+                            class="btn btn-primary pull-right mt-3 bi-save"
+                            data-toggle="tooltip"
+                            data-placement="bottom"
+                            title="Update Profile"
+                          >
+                            Update Profile
+                          </button>
+
+                          <button
+                            type="button"
+                            routerLink="/template"
+                            class="btn btn-danger float-right mt-3"
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

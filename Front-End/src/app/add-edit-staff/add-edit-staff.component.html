@@ -1,0 +1,186 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card border-0">
+          <div class="card-block">
+            <div class="mrg-top-40">
+              <div class="row">
+                <div class="col-md-8 ml-auto mr-auto">
+                  <form
+                    name="myForm"
+                    [formGroup]="staffForm"
+                    (ngSubmit)="saveClientStaff()"
+                  >
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="title">Username</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="username"
+                            formControlName="username"
+                            [ngClass]="{
+                              'is-invalid': submitted && f.username.errors
+                            }"
+                            name="username"
+                            [(ngModel)]="staffObj.username"
+                          />
+                          <div
+                            *ngIf="submitted && f.username.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.username.errors.required">
+                              Username is required
+                            </div>
+                          </div>
+                          <div *ngIf="isExist" style="color: red;">
+                            Username already exist
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="description">Email</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="email"
+                            formControlName="email"
+                            [ngClass]="{
+                              'is-invalid': submitted && f.email.errors
+                            }"
+                            name="email"
+                            [(ngModel)]="staffObj.email"
+                          />
+                          <div
+                            *ngIf="submitted && f.email.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.email.errors.required">
+                              Email is required
+                            </div>
+                          </div>
+                          <div *ngIf="isExist" style="color: red;">
+                            Email already exist
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label for="title">Password</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            type="password"
+                            id="password"
+                            formControlName="password"
+                            [ngClass]="{
+                              'is-invalid': submitted && f.password.errors
+                            }"
+                            name="password"
+                            [(ngModel)]="staffObj.password"
+                          />
+                          <div
+                            *ngIf="submitted && f.password.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.password.errors.required">
+                              Password is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label for="title">Confirm Password</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            type="password"
+                            id="confirmPassword"
+                            formControlName="confirmPassword"
+                            [ngClass]="{
+                              'is-invalid':
+                                submitted && f.confirmPassword.errors
+                            }"
+                            name="confirmPassword"
+                            [(ngModel)]="staffObj.confirmPassword"
+                          />
+                          <div
+                            *ngIf="submitted && f.confirmPassword.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.confirmPassword.errors.required">
+                              Confirm Password is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div *ngIf="isStorePresent">
+                      <label for="storeFk">Select Stores:</label>
+                      <ng-multiselect-dropdown
+                        [placeholder]="'Select store'"
+                        extra-settings="{selectionLimit:storeList}"
+                        [settings]="dropdownSettings"
+                        [ngModelOptions]="{standalone: true}"
+                        [data]="storeList"
+                        [formControl]="f.selectedStore"
+                        [(ngModel)]="staffObj.selectedStores"
+                        (onSelect)="onItemSelect($event)"
+                        (onSelectAll)="onSelectAll($event)"
+                      >
+                      </ng-multiselect-dropdown>
+                      <span
+                        *ngIf="f?.selectedStore?.errors?.required"
+                        class="text-danger"
+                      >
+                        <span
+                          *ngIf="
+                            submitted && f?.selectedStore?.errors?.required
+                          "
+                          class="text-danger"
+                        >
+                          Store is required
+                        </span>
+                      </span>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 col-xs-6">
+                        <div class="checkbox">
+                          <input id="check1" type="hidden" />
+                          <label for="check1">
+                            <a class="text-link" href=""></a>.</label
+                          >
+                        </div>
+                      </div>
+                      <div class="col-md-6 col-xs-6">
+                        <div class="text-right mrg-top-5">
+                          <div class="form-group">
+                            <button class="btn btn-primary">
+                              Create Staff
+                            </button>
+                            <a routerLink="/staff" class="btn btn-link"
+                              >Cancel</a
+                            >
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

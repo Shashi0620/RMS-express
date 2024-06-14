@@ -1,0 +1,250 @@
+<div class="tray-container" id="main">
+  <div class="layout-json"></div>
+  <nav class="navbar navbar-expand-lg navbar-light border border-light sticky">
+    <div class="container-fluid justify-content-start" *ngIf="traySelected">
+      <div class="mt-3">
+        <button
+          class="btn btn-primary"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Add Items"
+          onclick="openNav()"
+        >
+          <span class="d-flex align-items-center px-2">
+            <i class="bi bi-bag pr-1" style="font-size: large"></i>
+            <span class="small">Add Items</span>
+          </span>
+        </button>
+
+        <button
+          class="btn btn-primaryy rounded-pill px-3 mb-2 mb-lg-0"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Copy Tray"
+          (click)="copyTray()"
+        >
+          <span class="d-flex align-items-center px-2">
+            <i class="bi bi-clipboard-data pr-1" style="font-size: large"></i>
+            <span class="small">Copy</span>
+          </span>
+        </button>
+
+        <button
+          class="btn btn-primaryy rounded-pill px-3 mb-2 mb-lg-0"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Remove Tray"
+          (click)="removeTray()"
+        >
+          <span class="d-flex align-items-center px-2">
+            <i class="bi-trash2-fill pr-1" style="font-size: large"></i>
+            <span class="small">Delete</span>
+          </span>
+        </button>
+      </div>
+      <label
+        for="img-upload"
+        class="btn btn-primaryy rounded-pill px-3 mb-2 mb-lg-0 pointer mt-3 ml-3"
+        data-toggle="tooltip"
+        data-placement="bottom"
+        title="Choose File"
+      >
+        <span class="d-flex align-items-center px-2">
+          <i class="ti-export pdd-right-5 pr-1" style="font-size: large"></i>
+          <span class="small">Choose File</span>
+        </span>
+        <input
+          class="d-none"
+          type="file"
+          name="uploadedimages0"
+          multiple
+          id="img-upload"
+          (change)="selectFile($event)"
+        />
+      </label>
+
+      <button
+        class="btn btn-primaryy rounded-pill px-3 mb-2 mb-lg-0 mt-3"
+        type="button"
+        data-toggle="tooltip"
+        data-placement="bottom"
+        title="Pick Color"
+        (click)="isColorOpen = !isColorOpen"
+      >
+        <span class="d-flex align-items-center px-2">
+          <i
+            class="icon-color fas fa-close fa-lg pr-1"
+            style="font-size: large"
+          ></i>
+          <span class="small">Pick Color</span>
+        </span>
+      </button>
+      <div
+        class="position-absolute popup-picker"
+        style="width: 10%; margin-left: 350px"
+        *ngIf="isColorOpen"
+      >
+        <color-sketch
+          [color]="currentlyBeingEditedTray.color"
+          width="20"
+          (onChangeComplete)="changeColorComplete($event)"
+        ></color-sketch>
+      </div>
+
+      <div
+        class="btn btn-primaryy rounded-pill px-3 mb-2 mb-lg-0 form-check form-switch mt-3 pr-1"
+        data-toggle="tooltip"
+        data-placement="bottom"
+        title="Searchable"
+        style="line-height: normal"
+        (click)="updateSearchValue()"
+      >
+        <input
+          type="checkbox"
+          id="searchable"
+          [checked]="currentlyTraySearchable"
+        />
+        <span class="form-check-label small pr-2" for="searchable">
+          &nbsp; Searchable
+        </span>
+      </div>
+
+      <div class="btn-group" role="group" aria-label="First group">
+        <form [formGroup]="form" (ngSubmit)="saveTray()" class="d-flex ml-2">
+          <input
+            class="form-control me-1"
+            type="text"
+            placeholder="Edit Name"
+            aria-label="Search"
+            formControlName="trayname"
+          />
+
+          <button
+            class="btn btn-primaryy rounded-pill px-3 mt-3 mb-lg-0 ml-1 success"
+            data-toggle="tooltip"
+            data-placement="bottom"
+            title="Save Tray"
+            type="submit"
+            title="Save Tray"
+          >
+            <span class="d-flex align-items-center px-2">
+              <i class="icon-color fa fa-bars fa-lg mx-1 me-1 pr-1"></i>
+              <span class="small">Save</span>
+            </span>
+          </button>
+
+          <div class="ml-3 mt-3">
+            <button
+              class="btn btn-primaryy rounded-pill px-0 mb-0 mb-lg-0 layout mx-1 mb-2"
+              data-toggle="tooltip"
+              data-placement="bottom"
+              title="Save TrayLayout"
+              (click)="saveTrayLayout(trayList)"
+            >
+              <span class="d-flex align-items-center px-2">
+                <span class="small">Save Layout</span>
+              </span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <div style="margin-top: 50px">
+    <ktd-grid
+      [cols]="cols"
+      [rowHeight]="rowHeight"
+      [layout]="trayList"
+      [compactType]="compactType"
+      (dragStarted)="onDragStarted($event)"
+      (resizeStarted)="onResizeStarted($event)"
+      (dragEnded)="onDragEnded($event)"
+      (resizeEnded)="onResizeEnded($event)"
+      (layoutUpdated)="onLayoutUpdated($event)"
+    >
+      <ktd-grid-item
+        *ngFor="let item of trayList; trackBy: trackById; index as i"
+        [id]="item.id"
+        [transition]="currentTransition"
+        [dragStartThreshold]="dragStartThreshold"
+        [draggable]="!disableDrag"
+        [resizable]="!disableResize"
+      >
+        <div
+          class="card m-1 p-2"
+          (click)="editTray(item.id)"
+          class="{{
+            trayDataList[i].cssClass !== undefined
+              ? trayDataList[i].cssClass
+              : ''
+          }}"
+        >
+          <img
+            [src]="trayDataList[i].img"
+            class="card-img-top rounded mx-auto d-block"
+            style="width:{{ item.w * 100 }}px; height:{{ item.h * 50 - 50 }}px;"
+          />
+
+          <span class="card-text">{{ trayDataList[i].name }}</span>
+          <div class="position-absolute bottom-0 end-0 p-2">
+            <span
+              class="badge badge-pill badge-primary"
+              style="background-color: {{ trayDataList[i].color }};"
+            >
+              {{ trayDataList[i].quantity }}
+            </span>
+          </div>
+        </div>
+      </ktd-grid-item>
+    </ktd-grid>
+  </div>
+</div>
+
+<div *ngIf="isQuantity" class="mat-app-background basic-container">
+  <mat-table #table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="name">
+      <mat-header-cell
+        *matHeaderCellDef
+        class="text-bold"
+        style="font-size: 14px; color: #778d9b"
+      >
+        RackName
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element" style="color: #778d9b">
+        {{ element.name }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="storeName">
+      <mat-header-cell
+        *matHeaderCellDef
+        class="text-bold"
+        style="font-size: 14px; color: #778d9b"
+      >
+        StoreName
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element" style="color: #778d9b">
+        {{ element.storeName }}
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+</div>
+
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <div style="overflow-x: auto">
+    <item-listing
+      trayListId="{{ trayId }}"
+      rackId="{{ rackId }}"
+      rackName="{{ rackName }}"
+    ></item-listing>
+  </div>
+</div>
+
+<div *ngIf="message" class="alert alert-secondary" role="alert">
+  {{ message }}
+</div>

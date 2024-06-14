@@ -1,0 +1,37 @@
+<div class="container-fluid">
+    <input class="form-control me-2" type="search" [(ngModel)]="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success mr-1" (click)="searchTray()" 
+      data-bs-toggle="tooltip" data-bs-placement="top" title="Search Tray for Items">
+      <i class="icon-color fa fa-bars fa-lg"></i>
+    </button>
+  </div>
+
+<div *ngIf="isQuantity" class="mat-app-background basic-container">
+    <mat-table #table [dataSource]="dataSource" class="mat-elevation-z8">
+  
+      <ng-container matColumnDef="storeName">
+        <mat-header-cell *matHeaderCellDef class="text-bold" style="font-size: 14px;color: #778D9B;"> StoreName </mat-header-cell>
+        <mat-cell *matCellDef="let element" style="color: #778D9B"> {{element.storeName}} </mat-cell>
+      </ng-container>
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
+
+ <div class="container">
+
+    <div class="form-group">
+      <label>Enter address</label>
+      <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()" placeholder="Search Product" autocorrect="off" autocapitalize="off" spellcheck="off" type="text">
+    </div>
+  
+    <agm-map [latitude]="latitude" [longitude]="longitude">
+      <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+        (dragEnd)="mapClicked($event)"></agm-marker>
+    </agm-map>
+  
+    <h5>Address: {{address}}</h5>
+    <div>Latitude: {{latitude}}</div>
+    <div>Longitude: {{longitude}}</div>
+  </div>  

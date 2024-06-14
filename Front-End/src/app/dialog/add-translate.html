@@ -1,0 +1,88 @@
+<div class="main-content">
+  <!---<h3 mat-dialog-title>Row Action :: <strong>{{action}}</strong></h3>-->
+  <div mat-dialog-content>
+    <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
+      <div>
+        <h5>Key</h5>
+        <input
+          placeholder="{{action}} Key"
+          matInput
+          [(ngModel)]="local_data.Key"
+          style="height: 50px; width: 100%"
+        />
+      </div>
+      <br />
+      <div>
+        <h5>Value</h5>
+        <input
+          placeholder="{{action}} Value"
+          matInput
+          [(ngModel)]="local_data.Value"
+          style="height: 50px; width: 100%"
+        />
+      </div>
+    </mat-form-field>
+
+    <!---<ng-template #elseTemplate>
+      <h4 style="text-align: center; width: 40%">
+        <b>Are You Sure to delete?{{local_data.Key}}</b>
+      </h4>
+    </ng-template>--->
+
+    <div
+      mat-dialog-actions
+      style="text-align: center"
+      *ngIf="action != 'Delete'; else elseTemplates"
+    >
+      <div style="text-align: center">
+        <button
+          class="btn btn-sm btn-primary mt-2 pull-right bi bi-shop"
+          mat-button
+          (click)="doAction()"
+          mat-flat-button
+          style="background-color: #2185d0; border-color: #2185d0"
+        >
+          {{action}}
+        </button>
+
+        <button
+          class="btn btn-sm btn-primary mt-2 pull-right"
+          mat-button
+          (click)="closeDialog()"
+          mat-flat-button
+          color="warn"
+          style="background-color: hsl(0, 73%, 47%); border-color: #d40f0f"
+        >
+          <span class="btn-label">
+            <i class="btn-close mr-1"></i>
+          </span>
+          Cancel
+        </button>
+      </div>
+    </div>
+    <ng-template #elseTemplates>
+      <button
+        class="btn btn-sm btn-primary mt-2 pull-center bi bi-shop"
+        mat-button
+        (click)="doAction()"
+        mat-flat-button
+        style="background-color: #2185d0; border-color: #2185d0"
+      >
+        {{action}}
+      </button>
+      <button
+        class="btn btn-sm btn-primary mt-2 pull-center"
+        mat-button
+        (click)="closeDialog()"
+        mat-flat-button
+        color="warn"
+        style="background-color: hsl(0, 73%, 47%); border-color: #d40f0f"
+      >
+        <span class="btn-label">
+          <i class="btn-close mr-1"></i>
+        </span>
+        Cancel
+      </button>
+    </ng-template>
+  </div>
+</div>

@@ -1,0 +1,222 @@
+<div class="">
+  <button
+    *ngIf="quantity != null"
+    class="btn btn-sm btn-primary"
+    data-toggle="tooltip"
+    data-placement="bottom"
+    title="Select Existing Products"
+    (click)="retriveItems()"
+  >
+    {{
+      isShownNextButton ? 'Select Existing Products' : 'TrayItemsSelected Data'
+    }}
+  </button>
+</div>
+
+<mat-table
+  #table
+  [dataSource]="dataSource"
+  class="mat-elevation-z8 mt-5 w-100-t"
+>
+  <ng-container
+    matColumnDef="{{ column }}"
+    *ngFor="let column of displayedColumns"
+  >
+    <mat-header-cell
+      class="custom-mat-header-styling tableHeaderCellDiv"
+      *matHeaderCellDef
+    >
+      {{ column }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <div
+        *ngIf="
+          column != 'quantity' &&
+          column != 'lowerLimit' &&
+          column != 'upperLimit' &&
+          column != 'notificationList'
+        "
+        [innerHTML]="element[column]"
+      ></div>
+      &nbsp;
+
+      <div *ngIf="column == 'quantity' && quantity != null">
+        <input
+          type="number"
+          id="updateQuantity"
+          [value]="element[column]"
+          class="form-control"
+          (keyup)="onKeyUp($event)"
+        />
+      </div>
+      <div *ngIf="column == 'quantity' && quantity == null">
+        <input
+          type="number"
+          id="quantity"
+          class="form-control"
+          (keyup)="onKeyUp($event)"
+        />
+      </div>
+      <div *ngIf="column == 'actions' && quantity != null">
+        <button
+          class="btn btn-sm btn-primary mt-2 pull-right"
+          mat-button
+          (click)="addItemsToTray(element.id)"
+          mat-flat-button
+          style="background-color: #2185d0; border-color: #2185d0"
+          title="Save"
+        >
+          Save
+        </button>
+      </div>
+      <div *ngIf="column == 'actions' && quantity != null">
+        <a
+          class="bi-trash-fill context-menu mr-2"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Delete trayItem"
+          (click)="deleteTraysItem(element.id)"
+          style="color: #990059"
+        ></a>
+      </div>
+      <div *ngIf="column == 'actions' && quantity == null">
+        <button
+          class="btn btn-sm btn-primary mt-2 pull-right"
+          mat-button
+          (click)="addItemsToTray(element.id)"
+          mat-flat-button
+          style="background-color: #2185d0; border-color: #2185d0"
+          title="Save"
+        >
+          Save
+        </button>
+      </div>
+
+      <div *ngIf="column == 'actions' && quantity == null">
+        <a
+          class="bi bi-bell ml-1"
+          data-toggle="modal"
+          data-target="#exampleModal"
+          data-placement="bottom"
+          title="Add Notification"
+          style="font-size: larger"
+        ></a>
+      </div>
+
+      <div *ngIf="column == 'actions' && quantity != null">
+        <a
+          class="bi-pencil-fill ml-1"
+          data-toggle="modal"
+          data-target="#exampleModal"
+          data-placement="bottom"
+          title="Edit Notification"
+          style="font-size: larger"
+        ></a>
+      </div>
+
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="false"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">
+                Notification Modal
+              </h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body modal-body row justify-content-md-center">
+              <div class="row">
+                <div class="col-md-6">
+                  <label for="lowerLimit">LowerLimit</label>
+                  <input
+                    type="number"
+                    id="lowerLimit"
+                    class="form-control"
+                    [(ngModel)]="lowerLimit"
+                    (keyup)="onLowerLimit($event)"
+                  />
+                </div>
+
+                <div class="col-md-6">
+                  <label for="higherLimit">HigherLimit</label>
+                  <input
+                    type="number"
+                    id="higherLimit"
+                    class="form-control"
+                    [(ngModel)]="upperLimit"
+                    (keyup)="onUpperLimit($event)"
+                  />
+                </div>
+              </div>
+              <br />
+              <div class="row">
+                <div class="col">
+                  <label for="notification">Select Notification</label>
+                  <ng-select
+                    [items]="notificationList"
+                    bindLabel="settingName"
+                    bindValue="id"
+                    [(ngModel)]="notification.id"
+                  ></ng-select>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-danger mb-1"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+
+              <div *ngIf="quantity == null">
+                <button
+                  class="btn btn-primary mr-2 bi-save"
+                  data-toggle="tooltip"
+                  data-placement="bottom"
+                  title="Add Product To Tray"
+                  (click)="addItemsToTray(element.id)"
+                >
+                  Save Notification
+                </button>
+              </div>
+
+              <div *ngIf="quantity != null">
+                <button
+                  class="btn btn-primary mr-2 bi-save"
+                  data-toggle="tooltip"
+                  data-placement="bottom"
+                  title="Update Product"
+                  (click)="addItemsToTray(element.id)"
+                >
+                  Update Notification
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-cell>
+  </ng-container>
+  <br />
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+</mat-table>
+
+<mat-paginator #paginator [pageSize]="5"></mat-paginator>
+
+<!-- Modal -->

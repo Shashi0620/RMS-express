@@ -1,0 +1,148 @@
+[
+	{
+	   "id":1,
+	   "name":"Rec1",
+	   "itemtempid":3,
+	   "description":"asdasd",
+	   "attributes":[
+		 {
+			"type":"text",
+			"icon":"fa-font",
+			"label":"UserName",
+			"description":"Enter your name",
+			"placeholder":"Enter your name",
+			"className":"form-control",
+			"subtype":"text",
+			"regex":"",
+			"handle":true,
+			"name":"text-1623295869073",
+			"value":"UserName1"
+		 },	
+		  {
+			 "type":"number",
+			 "label":"Age",
+			 "icon":"fa-html5",
+			 "description":"Age",
+			 "placeholder":"Enter your age",
+			 "className":"form-control",
+			 "value":"20",
+			 "min":12,
+			 "max":90,
+			 "name":"number-1624112945839"
+		  },
+		  {
+			 "type":"phone",
+			 "icon":"fa-phone",
+			 "label":"Phone",
+			 "description":"Enter your phone",
+			 "placeholder":"Enter your phone",
+			 "className":"form-control",
+			 "subtype":"text",
+			 "regex":"^[+]?[(]?[0-9]{3}[)]?[-s.]?[0-9]{3}[-s.]?[0-9]{4,6}$",
+			 "errorText":"Please enter a valid phone number",
+			 "handle":true,
+			 "name":"phone-1624112950047",
+			 "value":"P1"
+		  }
+	   ],
+	   "createdat":null,
+	   "updatedat":null
+	},
+	{
+	   "id":2,
+	   "name":"Rec2",
+	   "itemtempid":3,
+	   "description":"asdasd",
+	   "attributes":[
+		 {
+			"type":"text",
+			"icon":"fa-font",
+			"label":"UserName",
+			"description":"Enter your name",
+			"placeholder":"Enter your name",
+			"className":"form-control",
+			"subtype":"text",
+			"regex":"",
+			"handle":true,
+			"name":"text-1623295869073"
+		 },	
+		  {
+			 "type":"number",
+			 "label":"Age",
+			 "icon":"fa-html5",
+			 "description":"Age",
+			 "placeholder":"Enter your age",
+			 "className":"form-control",
+			 "value":30,
+			 "min":12,
+			 "max":90,
+			 "name":"number-1624112945839"
+		  },
+		  {
+			 "type":"phone",
+			 "icon":"fa-phone",
+			 "label":"Phone",
+			 "description":"Enter your phone",
+			 "placeholder":"Enter your phone",
+			 "className":"form-control",
+			 "subtype":"text",
+			 "regex":"^[+]?[(]?[0-9]{3}[)]?[-s.]?[0-9]{3}[-s.]?[0-9]{4,6}$",
+			 "errorText":"Please enter a valid phone number",
+			 "handle":true,
+			 "name":"phone-1624112950047",
+			 "value":"P2"
+		  }
+	   ],
+	   "createdat":null,
+	   "updatedat":null
+	},
+	{
+	   "id":3,
+	   "name":"Rec2",
+	   "itemtempid":3,
+	   "description":"asdasd",
+	   "attributes":[
+		 {
+			"type":"text",
+			"icon":"fa-font",
+			"label":"UserName",
+			"description":"Enter your name",
+			"placeholder":"Enter your name",
+			"className":"form-control",
+			"subtype":"text",
+			"regex":"",
+			"handle":true,
+			"name":"text-1623295869073",
+			"value":"UserName3"
+		 },	
+		  {
+			 "type":"number",
+			 "label":"Age",
+			 "icon":"fa-html5",
+			 "description":"Age",
+			 "placeholder":"Enter your age",
+			 "className":"form-control",
+			 "value":30,
+			 "min":12,
+			 "max":90,
+			 "name":"number-1624112945839"
+		  },
+		  {
+			 "type":"phone",
+			 "icon":"fa-phone",
+			 "label":"Phone",
+			 "description":"Enter your phone",
+			 "placeholder":"Enter your phone",
+			 "className":"form-control",
+			 "subtype":"text",
+			 "regex":"^[+]?[(]?[0-9]{3}[)]?[-s.]?[0-9]{3}[-s.]?[0-9]{4,6}$",
+			 "errorText":"Please enter a valid phone number",
+			 "handle":true,
+			 "name":"phone-1624112950047"
+		  }
+	   ],
+	   "createdat":null,
+	   "updatedat":null
+	}
+	
+ ]

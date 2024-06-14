@@ -1,0 +1,284 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card border-0">
+          <div class="card-block">
+            <div class="mrg-top-40">
+              <div class="row">
+                <div class="col-md-8 ml-auto mr-auto">
+                  <form
+                    name="myForm"
+                    [formGroup]="notificationForm"
+                    (ngSubmit)="saveNotification()"
+                  >
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="title">SettingName</label>
+                          <input
+                            type="text"
+                            class="form-control w-100"
+                            id="name"
+                            formControlName="settingName"
+                            [ngClass]="{
+                              'is-invalid': submitted && f.settingName.errors
+                            }"
+                            name="settingName"
+                            [(ngModel)]="notification.settingName"
+                          />
+                          <div
+                            *ngIf="submitted && f.settingName.errors"
+                            class="invalid-feedback"
+                          >
+                            <div *ngIf="f.settingName.errors.required">
+                              SettingName is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <label for="title">Notification Type</label>
+                        <div class="col-md-6 mt-2">
+                          <input
+                            formControlName="notificationType"
+                            class="form-check-input"
+                            type="radio"
+                            name="notificationType"
+                            id="notificationType"
+                            [(ngModel)]="notification.notificationType"
+                            (change)="changenotificationType($event)"
+                            value="SMS"
+                          />
+                          <label class="form-check-label" for="SMS">SMS</label>
+                          <input
+                            formControlName="notificationType"
+                            class="form-check-input ml-4"
+                            type="radio"
+                            name="notificationType"
+                            id="notificationType"
+                            [(ngModel)]="notification.notificationType"
+                            (change)="changenotificationType($event)"
+                            value="Email"
+                          />
+                          <label class="form-check-label ml-5" for="Email">
+                            Email
+                          </label>
+
+                          <span
+                            *ngIf="
+                              submitted && f?.notificationType?.errors?.required
+                            "
+                            class="text-danger"
+                          >
+                            Notification is required
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                      <div class="col-md-6">
+                        <label for="flexCheckDefault">
+                          checkifEscalationRequired
+                        </label>
+                        <input
+                          class="form-check-input ml-4"
+                          [checked]="notification.isEscalationRequired"
+                          type="checkbox"
+                          (change)="onCheckboxChange($event)"
+                        />
+                      </div>
+                      <br />
+                      <div class="col-md-6 mt-n4" *ngIf="isEscalationRequired">
+                        <label for="title">To</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="to"
+                          formControlName="to"
+                          name="to"
+                          [(ngModel)]="escalation.to"
+                        />
+                      </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                      <div *ngIf="isEscalationRequired" class="col-md-6">
+                        <label for="noOfRemainder">No of Remainders</label>
+                        <select
+                          formControlName="noOfRemainder"
+                          class="form-control w-100"
+                          [value]="escalation.noOfRemainder"
+                          (change)="onChangeRemainder($event.target.value)"
+                          aria-label="Default select example"
+                        >
+                          <option value="1 Day">1 Day</option>
+                          <option value="2 Days">2 Days</option>
+                          <option value="3 Days">3 days</option>
+                        </select>
+                      </div>
+                      <br />
+                      <div *ngIf="isEscalationRequired" class="col-md-6">
+                        <label for="timeToEscalate">
+                          Time interval between Remainders
+                        </label>
+                        <select
+                          formControlName="timeToEscalate"
+                          class="form-control w-100"
+                          [value]="escalation.timeToEscalate"
+                          (change)="onChangeTimeInterval($event.target.value)"
+                          aria-label="Default select example"
+                        >
+                          <option value="1 Days">1 Day</option>
+                          <option value="2 Days">2 Days</option>
+                          <option value="3 Days">3 days</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div *ngIf="isEscalation">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th class="col w-50">EscalationType</th>
+                            <th class="col">To</th>
+                            <th class="col">TimetoEscalate</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <select
+                                    formControlName="escalationType"
+                                    class="form-control w-100-t"
+                                    [value]="escalation.escalationType"
+                                    (change)="
+                                      onChangeEscalationLevel(
+                                        $event.target.value
+                                      )
+                                    "
+                                    aria-label="Default select example"
+                                  >
+                                    <option value="Escalation Level 1">
+                                      Escalation Level 1
+                                    </option>
+                                    <option value="Escalation Level 2">
+                                      Escalation Level 2
+                                    </option>
+                                  </select>
+                                </div>
+                              </div>
+                            </td>
+                            <td>
+                              <input
+                                type="text"
+                                class="form-control"
+                                id="to"
+                                formControlName="to"
+                                name="to"
+                              />
+                            </td>
+
+                            <div class="col-md-6">
+                              <select
+                                formControlName="timeToEscalate"
+                                class="form-control w-100-t"
+                                [value]="escalation.timeToEscalate"
+                                (change)="
+                                  onChangeTimeInterval($event.target.value)
+                                "
+                                aria-label="Default select example"
+                              >
+                                <option value="1 Days">1 Day</option>
+                                <option value="2 Days">2 Days</option>
+                                <option value="3 Days">3 days</option>
+                              </select>
+                            </div>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <select
+                                    formControlName="escalationType"
+                                    class="form-control w-100-t"
+                                    [value]="escalation.escalationType"
+                                    (change)="
+                                      onChangeEscalationLevel(
+                                        $event.target.value
+                                      )
+                                    "
+                                    aria-label="Default select example"
+                                  >
+                                    <option value="Escalation Level 1">
+                                      Escalation Level 1
+                                    </option>
+                                    <option value="Escalation Level 2">
+                                      Escalation Level 2
+                                    </option>
+                                  </select>
+                                </div>
+                              </div>
+                            </td>
+                            <td>
+                              <input
+                                type="text"
+                                class="form-control"
+                                id="to"
+                                formControlName="to"
+                                name="to"
+                              />
+                            </td>
+
+                            <div class="col-md-6">
+                              <select
+                                formControlName="timeToEscalate"
+                                class="form-control w-100-t"
+                                [value]="escalation.timeToEscalate"
+                                (change)="
+                                  onChangeTimeInterval($event.target.value)
+                                "
+                                aria-label="Default select example"
+                              >
+                                <option value="1 Days">1 Day</option>
+                                <option value="2 Days">2 Days</option>
+                                <option value="3 Days">3 days</option>
+                              </select>
+                            </div>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <div class="form-group">
+                      <button
+                        class="btn btn-primary mt-5 float-right bi-save"
+                        data-toggle="tooltip"
+                        data-placement="bottom"
+                        title="Save Notification"
+                      >
+                        Save Notification
+                      </button>
+                      <button
+                        type="button"
+                        (click)="fetchNotification()"
+                        class="btn btn-danger mt-5 float-right"
+                      >
+                        <span class="btn-label">
+                          <i class="btn-close mr-1"></i>
+                        </span>
+                        Cancel
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,3 @@
+[{"id": 1,"rackName": "Rack1","no_of_rows": 3,"no_of_columns": "4","client_fk": 1,"createdAt": "2021-06-09T06:24:15.543Z",
+"updatedAt": "2021-06-09T06:24:15.543Z"},{"id": 2,"rackName": "Rack12","no_of_rows": 5,"no_of_columns": "6",
+"client_fk": 1,"createdAt": "2021-06-09T06:34:18.899Z","updatedAt": "2021-06-09T06:34:18.899Z"}]

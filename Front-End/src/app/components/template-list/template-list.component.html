@@ -1,0 +1,107 @@
+<div class="page-title">
+  <h4 class="ml-3">Template Listing</h4>
+</div>
+<div class="list row">
+  <div class="col-md-8">
+    <div></div>
+  </div>
+  <div class="mat-app-background basic-container">
+    <input
+      type="search"
+      class="form-control rounded ml-2"
+      style="max-width: max-content; float: left; margin-bottom: 15px"
+      t
+      (keyup)="applyFilter($event.target.value)"
+      placeholder="Search"
+      aria-label="Search"
+      aria-describedby="search-addon"
+    />
+    <div *ngIf="RoleName == 'SuperAdmin'">
+      <button
+        class="m-3 btn btn-sm btn-primary"
+        data-toggle="tooltip"
+        data-placement="bottom"
+        title="Add Item Template"
+        style="background-color: #2185d0; float: right; border-color: #2185d0"
+        routerLink="/addTemplate/"
+      >
+        Add Item Template
+      </button>
+    </div>
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      class="mat-elevation-z8"
+      style="color: #212529"
+    >
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="Name">
+        <th
+          mat-header-cell
+          class="custom-mat-header-styling tableHeaderCellDiv"
+          *matHeaderCellDef
+          class="text-bold"
+          style="font-size: 14px; color: #778d9b"
+        >
+          Name.
+        </th>
+        <td mat-cell *matCellDef="let element" style="color: #778d9b">
+          {{ element.name }}
+        </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="Description">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          class="text-bold"
+          style="font-size: 14px; color: #778d9b"
+        >
+          Description
+        </th>
+        <td mat-cell *matCellDef="let element" style="color: #778d9b">
+          {{ element.description }}
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+      <ng-container matColumnDef="Actions">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          class="text-bold"
+          style="font-size: 14px; color: #1e5272"
+        >
+          Actions
+        </th>
+        <td mat-cell *matCellDef="let element">
+          <a
+            class="bi-pencil-fill"
+            data-toggle="tooltip"
+            data-placement="bottom"
+            title=" Edit Template"
+            routerLink="/edit/{{ element.name }}/{{ element.id }}"
+          ></a>
+          <a
+            class="bi-trash-fill mr-2"
+            data-toggle="tooltip"
+            data-placement="bottom"
+            title="Delete Template"
+            (click)="removeTemplate(element.id, element.name)"
+            style="margin-left: 10px; color: #990000"
+          >
+          </a>
+        </td>
+      </ng-container>
+    </table>
+  </div>
+</div>
+<div *ngIf="dataList.length > 9">
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>

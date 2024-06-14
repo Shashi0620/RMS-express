@@ -1,0 +1,28 @@
+<div class="card-body">
+  <ul class="nav" style="width: 900px">
+    <li class="nav-item" *ngFor="let template of templateList">
+      <button
+        class="btn btn-primaryy rounded-pill px-3 mb-2 mb-lg-0"
+        (click)="fetchFormList(template.name, template.id)"
+      >
+        <span class="d-flex align-items-center">
+          <i class=""></i>
+          <span class="small">{{ template.name }}</span>
+        </span>
+      </button>
+    </li>
+  </ul>
+
+  <div *ngFor="let template of templateList">
+    <div *ngIf="template.name === name && formList" class="mt-4">
+      <app-formlist-quantity
+        name="{{ template.name }}"
+        id="{{ template.id }}"
+        isQuantity="{{ isQuantity }}"
+        trayId="{{ trayId }}"
+        rackId="{{ rackId }}"
+        rackName="{{ rackName }}"
+      ></app-formlist-quantity>
+    </div>
+  </div>
+</div>

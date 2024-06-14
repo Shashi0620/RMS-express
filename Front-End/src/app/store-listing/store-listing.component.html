@@ -1,0 +1,92 @@
+<div class="page-title ml-2">
+  <h4>{{ value }} Listing</h4>
+</div>
+<div class="list row">
+  <div style="float: right">
+    <button
+      class="btn btn-sm btn-primary mt-2 pull-right bi bi-shop"
+      data-toggle="tooltip"
+      data-placement="bottom"
+      title="Add Store"
+      style="background-color: #2185d0; border-color: #2185d0"
+      routerLink="/add-store/"
+    >
+      Add Store
+    </button>
+  </div>
+</div>
+
+<div class="mat-app-background basic-container">
+  <mat-table #table [dataSource]="dataSource" class="mat-elevation-z8 ml-2">
+    <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="storeName">
+      <mat-header-cell
+        class="custom-mat-header-styling tableHeaderCellDiv"
+        *matHeaderCellDef
+        class="text-bold"
+        style="font-size: 14px; color: #778d9b"
+      >
+        StoreName
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element" style="color: #778d9b">
+        {{ element.storeName }}
+      </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="address">
+      <mat-header-cell
+        class="custom-mat-header-styling tableHeaderCellDiv"
+        *matHeaderCellDef
+        class="text-bold"
+        style="font-size: 14px; color: #778d9b"
+      >
+        Location
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element" style="color: #778d9b">
+        {{ element.address }}
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell
+        *matHeaderCellDef
+        class="text-bold"
+        style="font-size: 14px; color: #778d9b"
+      >
+        Actions
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <a
+          class="bi-pencil-fill"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Edit Store"
+          routerLink="/edit-store/{{ element.storeId }}"
+        ></a>
+        <a
+          class="bi-trash-fill mr-2"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Delete Store"
+          (click)="deleteStore(element.storeId)"
+          style="margin-left: 10px; color: #990000"
+        ></a>
+        <a
+          class="bi-bell-fill"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Fetch Notifications"
+          (click)="fetchNotificationsBelongsToStore(element.storeId)"
+        ></a>
+      </mat-cell>
+    </ng-container>
+  </mat-table>
+  <mat-paginator #paginator [pageSize]="5"></mat-paginator>
+</div>

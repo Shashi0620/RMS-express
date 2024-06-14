@@ -1,0 +1,238 @@
+/* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '~@ng-select/ng-select/themes/default.theme.css';
+
+.clearfix {
+  clear: both;
+}
+.pointer {
+  cursor: pointer;
+}
+.ucfirst {
+  text-transform: capitalize;
+}
+.min300 {
+  min-height: 300px;
+}
+.menu-box {
+  width: 100%;
+  border-top: 2px solid mediumslateblue;
+  padding-top: 0px !important;
+  border-bottom: 1px groove;
+  margin-bottom: 10px;
+  border-style: ridge;
+}
+.app-box {
+  padding: 10px;
+  margin-bottom: 20px;
+  height: 230px;
+  background: #b5e8d4;
+  overflow: hidden;
+  box-shadow: 1px 1px 4px #ccc;
+}
+.page-container .main-content {
+  padding: 95px 15px 15px 15px;
+  min-height: calc(100vh - 60px);
+}
+.body {
+  font-family: Roboto, -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI',
+    'Helvetica Neue', Arial, sans-serif;
+  font-size: 14px;
+  background-color: #f1f1f1;
+  color: #888da8;
+  line-height: 1.5;
+  letter-spacing: 0.2px;
+  overflow-x: hidden;
+}
+.app-box:hover {
+  box-shadow: 1px 1px 4px #999;
+}
+.app-box .remove {
+  position: absolute;
+  right: 21px;
+  top: 0px;
+  color: #545454;
+  display: none;
+}
+.app-box:hover .remove {
+  display: block;
+}
+.inline-btn {
+  background: #00b970;
+  padding: 1px 5px;
+  color: white;
+  display: inline-block;
+  margin-bottom: 5px;
+}
+.box {
+  padding: 10px;
+  margin-bottom: 10px;
+  overflow: auto;
+  box-shadow: 1px 1px 4px #ddd;
+}
+.form-control {
+  border: 1px solid grey;
+  border-radius: 2px;
+  box-shadow: none;
+  height: 42px;
+  font-size: 14px;
+  color: #888da8;
+  transition: all 0.2s ease-in;
+  -webkit-transition: all 0.2s ease-in;
+}
+
+.w-100-t {
+  width: 1300px;
+}
+.form-controll {
+  width: 89%;
+  border: 1px solid grey;
+}
+
+.dndDropArea {
+  padding: 10px;
+  /* border: dotted #ddd 2px; */
+}
+
+.dndDropArea.empty {
+  min-height: 200px;
+  border: dotted #ddd 2px;
+}
+
+.field {
+  padding: 5px;
+  margin-bottom: 10px;
+  position: relative;
+}
+.field:hover {
+  box-shadow: 1px 1px 4px #ddd;
+}
+.toggle-Wrapper {
+  padding: 15px;
+  background: #d6d6d629;
+}
+.dndHandle {
+  cursor: pointer;
+  color: #999;
+}
+.dndDraggingSource {
+  opacity: 0.3;
+}
+.dndPlaceholder {
+  background: rgb(206, 238, 238);
+  border-radius: 2px;
+  padding: 20px;
+  margin-bottom: 10px;
+}
+.field .fa {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  font-size: 24px;
+  vertical-align: middle;
+}
+.red {
+  color: #d9534f;
+}
+.fa-trash {
+  color: #d9534f;
+}
+.marginT60 {
+  margin-top: 60px;
+}
+
+.color-red {
+  color: red;
+}
+.report-block {
+  padding: 10px;
+  background: #f8f8f8;
+  margin-bottom: 20px;
+}
+.report-block .row:nth-child(even) {
+  background: #fff;
+}
+
+.ftheme {
+  width: 100%;
+}
+
+.card-title {
+  font-family: Roboto, -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI',
+    'Helvetica Neue', Arial, sans-serif;
+  color: #515365;
+  margin-top: 0px;
+  margin-bottom: 15px;
+}
+
+.dndDropArea .field .fa {
+  opacity: 0;
+}
+.dndDropArea .field:hover .fa {
+  opacity: 1;
+}
+
+.colorpick {
+  height: 25px;
+  background: white;
+  border: none;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+table {
+  width: 100%;
+}
+
+.tableHeaderCellDiv {
+  resize: horizontal;
+  overflow: hidden;
+}
+
+.btn-primaryy {
+  color: #535a60;
+  background-color: white;
+  border-color: white;
+}
+.btn-primaryy:hover {
+  color: #0c0d0e;
+  background-color: #e4e6e8;
+  border-color: #e4e6e8;
+}
+.btn-check:checked + .btn-primaryy,
+.btn-check:active + .btn-primaryy,
+.btn-primaryy:active,
+.btn-primaryy.active,
+.show > .btn-primaryy.dropdown-toggle {
+  color: #e4e6e8;
+  background-color: #e4e6e8;
+  border-color: #e4e6e8;
+}
+
+.btn-check:checked + .btn-primaryy:focus,
+.btn-check:active + .btn-primaryy:focus,
+.btn-primaryy:active:focus,
+.btn-primaryy.active:focus,
+.show > .btn-primaryy.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.25rem #e5e5f0;
+}
+.btn-check:focus + .btn-primaryy,
+.btn-primaryy:focus {
+  color: #e4e6e8;
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
+.btn-primaryy:disabled,
+.btn-primaryy.disabled {
+  color: #e4e6e8;
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}

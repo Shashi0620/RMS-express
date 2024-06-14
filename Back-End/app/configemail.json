@@ -1,0 +1,8 @@
+{
+  "fromEmailAddress": "vasavi@electems.com",
+  "activationEmailSubject": "Activation Link",
+  "registrationEmailSubject": "Registration",
+  "subjectofPasswordEmail": "Forgot Password",
+  "EmailSystemUrl": "http://localhost:8080",
+  "adminSystemUrl": "E:/RackManagementNewMainBranch/rack-management/Back-End/resources/adminJsonFolder"
+}

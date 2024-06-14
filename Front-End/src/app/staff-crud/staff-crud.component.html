@@ -1,0 +1,80 @@
+<div class="page-title ml-2">
+  <h4>{{ value }} Listing</h4>
+</div>
+<div class="list row">
+  <div
+    *ngIf="this.noOfstaff.length <= this.noOfUsers || RoleName == 'SuperAdmin'"
+  >
+    <div style="float: right">
+      <button
+        class="btn btn-sm btn-primary mt-2 pull-right bi bi-shop"
+        data-toggle="tooltip"
+        data-placement="bottom"
+        title="Add Staff"
+        style="background-color: #2185d0; border-color: #2185d0"
+        routerLink="/add-staff/"
+      >
+        Add Staff
+      </button>
+    </div>
+  </div>
+</div>
+<div class="mat-app-background basic-container">
+  <mat-table [dataSource]="dataSource" class="mat-elevation-z8 ml-2">
+    <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell
+        class="custom-mat-header-styling tableHeaderCellDiv"
+        *matHeaderCellDef
+        class="text-bold"
+        style="font-size: 14px; color: #778d9b"
+      >
+        Name.
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element" style="color: #778d9b">
+        {{ element.username }}
+      </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="email">
+      <mat-header-cell
+        class="custom-mat-header-styling tableHeaderCellDiv"
+        *matHeaderCellDef
+        class="text-bold"
+        style="font-size: 14px; color: #778d9b"
+      >
+        Email
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element" style="color: #778d9b">
+        {{ element.email }}
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell
+        *matHeaderCellDef
+        class="text-bold"
+        style="font-size: 14px; color: #778d9b"
+      >
+        Actions
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <a class="bi-pencil-fill" routerLink="/edit-staff/{{ element.id }}"></a>
+        <a
+          class="bi-trash-fill mr-2"
+          (click)="deleteStaff(element.id)"
+          style="margin-left: 10px; color: #990000"
+        ></a>
+      </mat-cell>
+    </ng-container>
+  </mat-table>
+
+  <mat-paginator #paginator [pageSize]="5"></mat-paginator>
+</div>
